@@ -6,7 +6,8 @@ public enum Abilities
     nothing,
     dash,
     invisible,
-    fireBall
+    fireBall,
+    grappel
 }
 public class Abelities : MonoBehaviour
 {

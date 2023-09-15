@@ -53,6 +53,15 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grappel"",
+                    ""type"": ""Button"",
+                    ""id"": ""7324c3c4-3672-4945-b8fa-40ee3dba0903"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +97,17 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Invisible"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad02f8e8-69a4-4132-b7ed-7979ecad184b"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grappel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -99,6 +119,7 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         m_Abilities_Ability = m_Abilities.FindAction("Ability", throwIfNotFound: true);
         m_Abilities_Dash = m_Abilities.FindAction("Dash", throwIfNotFound: true);
         m_Abilities_Invisible = m_Abilities.FindAction("Invisible", throwIfNotFound: true);
+        m_Abilities_Grappel = m_Abilities.FindAction("Grappel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,6 +184,7 @@ public partial class @Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Abilities_Ability;
     private readonly InputAction m_Abilities_Dash;
     private readonly InputAction m_Abilities_Invisible;
+    private readonly InputAction m_Abilities_Grappel;
     public struct AbilitiesActions
     {
         private @Actions m_Wrapper;
@@ -170,6 +192,7 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         public InputAction @Ability => m_Wrapper.m_Abilities_Ability;
         public InputAction @Dash => m_Wrapper.m_Abilities_Dash;
         public InputAction @Invisible => m_Wrapper.m_Abilities_Invisible;
+        public InputAction @Grappel => m_Wrapper.m_Abilities_Grappel;
         public InputActionMap Get() { return m_Wrapper.m_Abilities; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -188,6 +211,9 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @Invisible.started += instance.OnInvisible;
             @Invisible.performed += instance.OnInvisible;
             @Invisible.canceled += instance.OnInvisible;
+            @Grappel.started += instance.OnGrappel;
+            @Grappel.performed += instance.OnGrappel;
+            @Grappel.canceled += instance.OnGrappel;
         }
 
         private void UnregisterCallbacks(IAbilitiesActions instance)
@@ -201,6 +227,9 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @Invisible.started -= instance.OnInvisible;
             @Invisible.performed -= instance.OnInvisible;
             @Invisible.canceled -= instance.OnInvisible;
+            @Grappel.started -= instance.OnGrappel;
+            @Grappel.performed -= instance.OnGrappel;
+            @Grappel.canceled -= instance.OnGrappel;
         }
 
         public void RemoveCallbacks(IAbilitiesActions instance)
@@ -223,5 +252,6 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         void OnAbility(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnInvisible(InputAction.CallbackContext context);
+        void OnGrappel(InputAction.CallbackContext context);
     }
 }
