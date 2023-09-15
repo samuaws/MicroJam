@@ -10,6 +10,8 @@ public class Grappling : MonoBehaviour
     public LayerMask whatIsGrappleable;
     public LineRenderer lr;
     Rigidbody rb;
+    public  CharacterController characterController;
+    public BoxCollider col;
 
     [Header("Grappling")]
     public float maxGrappleDistance;
@@ -47,7 +49,7 @@ public class Grappling : MonoBehaviour
             lr.SetPosition(0, gunTip.position);
     }
 
-    private void StartGrapple()
+    public  void StartGrapple()
     {
         if (grapplingCdTimer > 0) return;
 
@@ -55,10 +57,12 @@ public class Grappling : MonoBehaviour
 
 
         RaycastHit hit;
-        if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappleable))
+        if (Physics.Raycast(cam.position, cam.forward , out hit, maxGrappleDistance, whatIsGrappleable))
         {
             grapplePoint = hit.point;
-
+            col.enabled = true;
+            rb.isKinematic = false;
+            characterController.enabled = false;
             Invoke(nameof(ExecuteGrapple), grappleDelayTime);
         }
         else
@@ -90,10 +94,12 @@ public class Grappling : MonoBehaviour
     {
 
         grappling = false;
-
+        col.enabled = false;
+        rb.isKinematic = false;
+        characterController.enabled = true;
         grapplingCdTimer = grapplingCd;
-
         lr.enabled = false;
+
     }
 
     public bool IsGrappling()
@@ -115,7 +121,9 @@ public class Grappling : MonoBehaviour
     private Vector3 velocityToSet;
     private void SetVelocity()
     {
+
         rb.velocity = velocityToSet;
+        print(velocityToSet);
 
     }
     public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
