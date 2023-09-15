@@ -62,6 +62,15 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""fireball"",
+                    ""type"": ""Button"",
+                    ""id"": ""2a5d930a-8f77-4297-9add-0279e285bf24"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -108,6 +117,17 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Grappel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20acacf7-0db5-4a88-872d-0f6ad9d77f26"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""fireball"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -120,6 +140,7 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         m_Abilities_Dash = m_Abilities.FindAction("Dash", throwIfNotFound: true);
         m_Abilities_Invisible = m_Abilities.FindAction("Invisible", throwIfNotFound: true);
         m_Abilities_Grappel = m_Abilities.FindAction("Grappel", throwIfNotFound: true);
+        m_Abilities_fireball = m_Abilities.FindAction("fireball", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,6 +206,7 @@ public partial class @Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Abilities_Dash;
     private readonly InputAction m_Abilities_Invisible;
     private readonly InputAction m_Abilities_Grappel;
+    private readonly InputAction m_Abilities_fireball;
     public struct AbilitiesActions
     {
         private @Actions m_Wrapper;
@@ -193,6 +215,7 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Abilities_Dash;
         public InputAction @Invisible => m_Wrapper.m_Abilities_Invisible;
         public InputAction @Grappel => m_Wrapper.m_Abilities_Grappel;
+        public InputAction @fireball => m_Wrapper.m_Abilities_fireball;
         public InputActionMap Get() { return m_Wrapper.m_Abilities; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -214,6 +237,9 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @Grappel.started += instance.OnGrappel;
             @Grappel.performed += instance.OnGrappel;
             @Grappel.canceled += instance.OnGrappel;
+            @fireball.started += instance.OnFireball;
+            @fireball.performed += instance.OnFireball;
+            @fireball.canceled += instance.OnFireball;
         }
 
         private void UnregisterCallbacks(IAbilitiesActions instance)
@@ -230,6 +256,9 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @Grappel.started -= instance.OnGrappel;
             @Grappel.performed -= instance.OnGrappel;
             @Grappel.canceled -= instance.OnGrappel;
+            @fireball.started -= instance.OnFireball;
+            @fireball.performed -= instance.OnFireball;
+            @fireball.canceled -= instance.OnFireball;
         }
 
         public void RemoveCallbacks(IAbilitiesActions instance)
@@ -253,5 +282,6 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnInvisible(InputAction.CallbackContext context);
         void OnGrappel(InputAction.CallbackContext context);
+        void OnFireball(InputAction.CallbackContext context);
     }
 }

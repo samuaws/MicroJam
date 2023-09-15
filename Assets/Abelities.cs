@@ -18,6 +18,9 @@ public class Abelities : MonoBehaviour
     public Actions actions;
     public float invisibleTIme;
     public Grappling grappling;
+    public GameObject grenade;
+    public Transform gunTip;
+    public float range;
     Animator anim;
     private void Awake()
     {
@@ -26,6 +29,7 @@ public class Abelities : MonoBehaviour
         actions.Abilities.Dash.performed += _ => ActiveDash();
         actions.Abilities.Invisible.performed += _ => ActiveInvisible();
         actions.Abilities.Grappel.performed += _ => ActiveGrapple();
+        actions.Abilities.fireball.performed += _ => ActiveFireBall();
 
         actions.Abilities.Ability.performed += _ => DoAbility();
     }
@@ -91,6 +95,15 @@ public class Abelities : MonoBehaviour
     {
         GameManager.Instance.currentAbility = Abilities.grappel;
     }
+    public void ActiveFireBall()
+    {
+        GameManager.Instance.currentAbility = Abilities.fireBall;
+    }
+    void FireBall()
+    {
+        GameObject fireball =  Instantiate(grenade, gunTip.position, Quaternion.identity);
+        fireball.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * range + gunTip.transform.right, ForceMode.Impulse);
+    }
     void Visible()
     {
         GameManager.Instance.playerMesh.GetComponent<Renderer>().enabled = true;
@@ -113,6 +126,11 @@ public class Abelities : MonoBehaviour
                 Grappel();
                 GameManager.Instance.currentAbility = Abilities.nothing;
                 break;
+            case Abilities.fireBall:
+                FireBall();
+                GameManager.Instance.currentAbility = Abilities.nothing;
+                break;
+
         }
     }
 

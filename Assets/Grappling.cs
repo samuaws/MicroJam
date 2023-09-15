@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Grappling : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Grappling : MonoBehaviour
     Rigidbody rb;
     public  CharacterController characterController;
     public BoxCollider col;
+    public float grappleForce;
 
     [Header("Grappling")]
     public float maxGrappleDistance;
@@ -95,7 +97,7 @@ public class Grappling : MonoBehaviour
 
         grappling = false;
         col.enabled = false;
-        rb.isKinematic = false;
+        rb.isKinematic = true;
         characterController.enabled = true;
         grapplingCdTimer = grapplingCd;
         lr.enabled = false;
@@ -121,9 +123,9 @@ public class Grappling : MonoBehaviour
     private Vector3 velocityToSet;
     private void SetVelocity()
     {
-
-        rb.velocity = velocityToSet;
-        print(velocityToSet);
+        rb.AddForce((grapplePoint - transform.position) * grappleForce );
+        //rb.velocity = velocityToSet;
+        //print(velocityToSet);
 
     }
     public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
