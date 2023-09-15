@@ -136,6 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 259404912}
   - component: {fileID: 259404911}
+  - component: {fileID: 259404913}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -156,6 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 554824289}
+  playerMesh: {fileID: 1883764746}
+  currentAbility: 0
 --- !u!4 &259404912
 Transform:
   m_ObjectHideFlags: 0
@@ -171,6 +174,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &259404913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259404910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0623a9b2ba62894a829503aba2698e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &542508511
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,6 +869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashSpeed: 0.1
   dashTime: 0.5
+  invisibleTIme: 2
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,6 +935,12 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
+--- !u!1 &1883764746 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6664839552874652836, guid: 58d1e2cb8d794f945b2dbeaa4ee0da5d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2128478513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2128478513
 PrefabInstance:
   m_ObjectHideFlags: 0
