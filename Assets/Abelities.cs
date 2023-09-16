@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
 public enum Abilities
 {
     nothing,
@@ -20,7 +23,9 @@ public class Abelities : MonoBehaviour
     public Grappling grappling;
     public GameObject grenade;
     public Transform gunTip;
-    public float range;
+    public float shotRange;
+    public float grappelCheckRadius;
+    public GameObject poroDead;
     Animator anim;
     private void Awake()
     {
@@ -42,27 +47,26 @@ public class Abelities : MonoBehaviour
 
     private void Update()
     {
-
+        if (!grappling.IsGrappling()) anim.SetBool("grappel", false);
+        
     }
     IEnumerator DashCouroutine()
     {
         float startTime = Time.time;
         anim.SetBool("dash", true);
+        AudioManager.instance.PlaySoundEffect(Abilities.dash);
         while (Time.time < startTime + dashTime)
         {
             controller.Move(transform.forward * dashSpeed);
             yield return null;
         }
-        anim.SetBool("dash", true);
+        anim.SetBool("dash", false);
     }
     void Dash()
     {
         StartCoroutine(DashCouroutine());
     }
-    public void ActiveDash()
-    {
-        GameManager.Instance.currentAbility = Abilities.dash;
-    }
+
     void Invisible()
     {
         StartCoroutine(InvisibleCouroutine());
@@ -70,15 +74,18 @@ public class Abelities : MonoBehaviour
     public void Grappel()
     {
         grappling.StartGrapple();
+        AudioManager.instance.PlaySoundEffect(Abilities.grappel);
+        anim.SetBool("grappel", true);
 
     }
+
     IEnumerator InvisibleCouroutine()
     {
         anim.SetBool("invisible", true);
+        AudioManager.instance.PlaySoundEffect(Abilities.invisible);
         yield return new WaitForSeconds(1);
         GameManager.Instance.playerMesh.GetComponent<Renderer>().enabled = false;
         StartCoroutine(DesactivateInvisible());
-
     }
     IEnumerator DesactivateInvisible()
     {
@@ -87,22 +94,73 @@ public class Abelities : MonoBehaviour
         anim.SetBool("invisible", false);
         Visible();
     }
+    public void ActiveDash()
+    {
+        if (GameManager.Instance.poroObtained[Abilities.dash].count > 0)
+        {
+            GameManager.Instance.currentAbility = Abilities.dash;
+            GameManager.Instance.poroObtained[Abilities.dash].count--;
+            GameObject var = GameManager.Instance.poroObtained[Abilities.dash].poro[0];
+            GameManager.Instance.poroObtained[Abilities.dash].poro.RemoveAt(0);
+            Instantiate(poroDead, var.transform.position, Quaternion.identity);
+            Destroy(var);
+
+
+        }
+    }
     public void ActiveInvisible()
     {
-        GameManager.Instance.currentAbility = Abilities.invisible;
+        if (GameManager.Instance.poroObtained[Abilities.invisible].count > 0)
+        {
+            GameManager.Instance.currentAbility = Abilities.invisible;
+            GameManager.Instance.poroObtained[Abilities.invisible].count--;
+            GameObject var = GameManager.Instance.poroObtained[Abilities.invisible].poro[0];
+            GameManager.Instance.poroObtained[Abilities.invisible].poro.RemoveAt(0);
+            Instantiate(poroDead, var.transform.position, Quaternion.identity);
+            Destroy(var);
+        }
     }
     public void ActiveGrapple()
     {
-        GameManager.Instance.currentAbility = Abilities.grappel;
+        if (GameManager.Instance.poroObtained[Abilities.grappel].count > 0)
+        {
+            GameManager.Instance.currentAbility = Abilities.grappel;
+            GameManager.Instance.poroObtained[Abilities.grappel].count--;
+            GameObject var = GameManager.Instance.poroObtained[Abilities.grappel].poro[0];
+            GameManager.Instance.poroObtained[Abilities.grappel].poro.RemoveAt(0);
+            Instantiate(poroDead, var.transform.position, Quaternion.identity);
+            Destroy(var);
+        }
     }
     public void ActiveFireBall()
     {
-        GameManager.Instance.currentAbility = Abilities.fireBall;
+        if (GameManager.Instance.poroObtained[Abilities.fireBall].count > 0)
+        {
+            GameManager.Instance.currentAbility = Abilities.fireBall;
+            GameManager.Instance.poroObtained[Abilities.fireBall].count--;
+            GameObject var = GameManager.Instance.poroObtained[Abilities.fireBall].poro[0];
+            GameManager.Instance.poroObtained[Abilities.fireBall].poro.RemoveAt(0);
+            Instantiate(poroDead, var.transform.position, Quaternion.identity);
+            Destroy(var);
+        }
     }
     void FireBall()
     {
+        StartCoroutine(FireBallCouroutuine());
+    }
+    void FireBallActions()
+    {
+        
         GameObject fireball =  Instantiate(grenade, gunTip.position, Quaternion.identity);
-        fireball.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * range + gunTip.transform.right, ForceMode.Impulse);
+        fireball.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * shotRange + gunTip.transform.right, ForceMode.Impulse);
+        anim.SetBool("throw", false);
+    }
+    IEnumerator FireBallCouroutuine()
+    {
+        AudioManager.instance.PlaySoundEffect(Abilities.fireBall);
+        anim.SetBool("throw", true);
+        yield return new WaitForSeconds(.5f);
+        FireBallActions();
     }
     void Visible()
     {
@@ -123,9 +181,16 @@ public class Abelities : MonoBehaviour
                 GameManager.Instance.currentAbility = Abilities.nothing;
                 break;
             case Abilities.grappel:
-                Grappel();
-                GameManager.Instance.currentAbility = Abilities.nothing;
+                if(Physics.SphereCast(Camera.main.transform.position , grappelCheckRadius ,Camera.main.transform.forward ,  out RaycastHit hit))
+                {
+                    if (hit.collider.gameObject.CompareTag("Grappel"))
+                    {
+                        Grappel();
+                        GameManager.Instance.currentAbility = Abilities.nothing;
+                    }
+                }
                 break;
+
             case Abilities.fireBall:
                 FireBall();
                 GameManager.Instance.currentAbility = Abilities.nothing;

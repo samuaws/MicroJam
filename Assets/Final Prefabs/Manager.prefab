@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5456732663475757661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8236929652481854908}
+  - component: {fileID: 2457749788075793661}
+  - component: {fileID: 1212941985326870020}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8236929652481854908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5456732663475757661}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.3520918, y: 1.6401272, z: 1.7095996}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2457749788075793661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5456732663475757661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2989ac6f367fbd4eb52a8ab323e6b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerMesh: {fileID: 0}
+  currentAbility: 0
+  prefabs:
+  - ability: 1
+    prefab: {fileID: 3772652623208036860, guid: ce619f1881a3c164fa77140423cc1bb7,
+      type: 3}
+  - ability: 3
+    prefab: {fileID: 6918588551038514416, guid: 4301d122c649e2d488446c83dae48e83,
+      type: 3}
+  - ability: 4
+    prefab: {fileID: 8396500759563273370, guid: 7bf4099610ef7ed499fd60513e8dca61,
+      type: 3}
+  - ability: 2
+    prefab: {fileID: 6918588551038514416, guid: 9b95a81fd8f80ee44bb9f4967c084151,
+      type: 3}
+  initialWhitePoro: 3
+  initialPinkPoro: 6
+  initialRedPoro: 8
+  initialBluePoro: 5
+  blue: {fileID: 0}
+  white: {fileID: 0}
+  pink: {fileID: 0}
+  red: {fileID: 0}
+--- !u!114 &1212941985326870020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5456732663475757661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0623a9b2ba62894a829503aba2698e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
