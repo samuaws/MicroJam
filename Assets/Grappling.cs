@@ -29,7 +29,7 @@ public class Grappling : MonoBehaviour
     [Header("Input")]
     public KeyCode grappleKey = KeyCode.Mouse1;
 
-    private bool grappling;
+    public bool grappling;
 
 
     private void Start()
@@ -92,7 +92,7 @@ public class Grappling : MonoBehaviour
         Invoke(nameof(StopGrapple), 1f);
     }
 
-    public void StopGrapple()
+    public void StopGrapple() 
     {
 
         grappling = false;
