@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8b5a0b5707c5a604e9db5a4a057ad1c6,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.6953254
+      value: 32.867275
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b5a0b5707c5a604e9db5a4a057ad1c6,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.6953254
+      value: 32.867275
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b5a0b5707c5a604e9db5a4a057ad1c6,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.6953254
+      value: 32.867275
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b5a0b5707c5a604e9db5a4a057ad1c6,
         type: 3}
@@ -72,6 +72,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b5a0b5707c5a604e9db5a4a057ad1c6,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8b5a0b5707c5a604e9db5a4a057ad1c6,
         type: 3}
@@ -159,7 +164,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &8452277731939284031
 MonoBehaviour:
@@ -173,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c2098c1161c56468098f76ead6097d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 3.4
 --- !u!95 &6467990560775053684
 Animator:
   serializedVersion: 5

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PoroType
 {
@@ -47,6 +48,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI white;
     public TextMeshProUGUI pink;
     public TextMeshProUGUI red;
+    public GameObject gameOverUi;
+    public GameObject HUD;
+
+    public bool invisible;
     
     private void Awake()
     {
@@ -84,5 +89,19 @@ public class GameManager : MonoBehaviour
         poroObtained[ability].count++;
         poroObtained[ability].poro.Add( Instantiate(prefabs.Single(obj => obj.ability == ability).prefab, position, Quaternion.identity));
     }
-
+    public void GameOver()
+    {
+        gameOverUi.SetActive(true);
+        HUD.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f;
+    }
+    public void Replay()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
+    }
 }

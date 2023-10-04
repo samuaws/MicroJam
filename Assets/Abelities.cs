@@ -85,6 +85,7 @@ public class Abelities : MonoBehaviour
         AudioManager.instance.PlaySoundEffect(Abilities.invisible);
         yield return new WaitForSeconds(1);
         GameManager.Instance.playerMesh.GetComponent<Renderer>().enabled = false;
+        GameManager.Instance.invisible = true;
         StartCoroutine(DesactivateInvisible());
     }
     IEnumerator DesactivateInvisible()
@@ -165,6 +166,7 @@ public class Abelities : MonoBehaviour
     void Visible()
     {
         GameManager.Instance.playerMesh.GetComponent<Renderer>().enabled = true;
+        GameManager.Instance.invisible = false;
     }
     public void DoAbility()
     {
